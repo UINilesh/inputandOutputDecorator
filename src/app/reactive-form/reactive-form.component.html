@@ -1,0 +1,98 @@
+   <form
+    [formGroup]="registerForm"
+    (ngSubmit)="submitForm()"
+   >
+    <div class="form-group">
+         <input
+          type="text"
+          name="name"
+          formControlName="name"
+          autocomplete="off"
+          class="form-control input-sm"
+          placeholder="Name"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+        />
+
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+
+  <div class="form-group">
+    <input type="email" name="email" placeholder="Email Address" formControlName="email" 
+    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email is required </div>
+      <div *ngIf="f.email.errors.email">
+        Please enter proper email
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="number" name="age" placeholder="age" 
+    formControlName="age" 
+    [ngClass]="{'is-invalid': submitted && f.age.errors }"/>
+    <div *ngIf="submitted && f.age.errors" class="invalid-feedback"
+    pattern="[0-2]*"
+   minlength="2"
+   maxlength="2">
+      <div *ngIf="f.age.errors.required">
+        Age is required.
+      </div>
+      <div *ngIf="f.age.errors.minlength">
+        Please add minimun two numbers
+      </div>
+    </div>
+  </div>
+   
+  <div class="form-group">
+     <input type="radio" value="male" formControlName="gender">Male 
+     <input type="radio" value="female" formControlName="gender" value="female"> Female
+     <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+      <div *ngIf="f.gender.errors.required">
+       Gender is required.
+      </div> 
+ 
+     </div>
+  </div>
+
+  <div class="form-group">
+      <select (change)="changeCity($event)" formControlName="city" name="city" 
+      [ngClass]="{'is-invalid': submitted && f.city.errors }">
+          <option value="">Please select city</option>
+           <option *ngFor="let cityvalue of citynames">
+             {{cityvalue}}
+           </option>
+          
+      </select>
+      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+        <div *ngIf="f.city.errors.required">
+         City is required.
+        </div> 
+   
+       </div>
+
+  </div>
+
+  <div class="form-group">
+    <select name="country" formControlName="country">
+        <option value="">Please select country</option>
+         <option *ngFor="let countryValue of countryNames">
+           {{countryValue}}
+         </option>
+    </select>
+    <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+      <div *ngIf="f.country.errors.required">
+        Country is required.
+      </div>
+    </div>
+</div>
+ 
+<div class="submitbtn">
+    <button type="submit" class="btn btn-success">Submit Form</button>
+             &nbsp;
+    <input type="reset" value="Reset" name="reset" />
+</div>
+
+  
+</form>
